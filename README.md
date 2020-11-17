@@ -42,3 +42,9 @@ POST	|/favorites|	즐겨찾기 API
 POST	|/story	|스토리 등록
 
 [API 세부사항](https://docs.google.com/spreadsheets/d/1MMQBGzPBDdwT32qFgVm6wq023a9gWHIrFVHihuqzw1k/edit?usp=sharing)
+
+# ERD
+
+<img>
+
+![facebook ERD](/image/Facebook_DB.png)
