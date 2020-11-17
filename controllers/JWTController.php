@@ -18,19 +18,20 @@ try {
             http_response_code(200);
 
             // 1) 로그인 시 email, password 받기
-            if (!isValidUser($req->email, $req->password)) { // JWTPdo.php 에 구현
+            if (!isValidUser($req->userEmail, $req->pwd)) { // JWTPdo.php 에 구현
                 $res->isSuccess = FALSE;
                 $res->code = 201;
-                $res->message = "유효하지 않은 아이디 입니다";
+                $res->message = "유효하지 않은 계정 입니다";
                 echo json_encode($res, JSON_NUMERIC_CHECK);
                 return;
             }
 
             // 2) JWT 발급
             // Payload에 맞게 다시 설정 요함, 아래는 Payload에 userIdx를 넣기 위한 과정
-            $userIdx = getUserIdxByEmail($req->email);  // JWTPdo.php 에 구현
+            $userIdx = getUserIdxByEmail($req->userEmail);  // JWTPdo.php 에 구현
             $jwt = getJWT($userIdx, JWT_SECRET_KEY); // function.php 에 구현
 
+            $res->result = new stdClass();
             $res->result->jwt = $jwt;
             $res->isSuccess = TRUE;
             $res->code = 100;

@@ -1,4 +1,5 @@
 <?php
+
 require './pdos/DatabasePdo.php';
 require './pdos/IndexPdo.php';
 require './pdos/JWTPdo.php';
@@ -11,19 +12,55 @@ date_default_timezone_set('Asia/Seoul');
 ini_set('default_charset', 'utf8mb4');
 
 //에러출력하게 하는 코드
-//error_reporting(E_ALL); ini_set("display_errors", 1);
+error_reporting(E_ALL); ini_set("display_errors", 1);
 
 //Main Server API
 $dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) {
+    /* ****************   Complete   **************** */
+    $r->addRoute('GET', '/', ['IndexController', 'index']);
+    $r->addRoute('GET', '/users', ['IndexController', 'getUsers']);
+    $r->addRoute('GET', '/users/{userIdx}', ['IndexController', 'getUserDetail']);
+    $r->addRoute('POST', '/user', ['IndexController', 'createUser']);
+    $r->addRoute('DELETE', '/user/{userIdx}', ['IndexController', 'deleteUser']);
+    $r->addRoute('PATCH', '/user/{userIdx}', ['IndexController', 'updateUser']);
+    $r->addRoute('GET', '/post', ['IndexController', 'getPost']);
+    $r->addRoute('GET', '/post/{postIdx}', ['IndexController', 'getPostDetail']);
+    $r->addRoute('POST', '/post', ['IndexController', 'createPost']);
+    $r->addRoute('GET', '/searchPosts', ['IndexController', 'searchPosts']);
+    $r->addRoute('PATCH', '/post', ['IndexController', 'updatePost']);
+    $r->addRoute('DELETE', '/post/{postIdx}', ['IndexController', 'deletePost']);
+    $r->addRoute('POST', '/post/{postIdx}/like', ['IndexController', 'patchLike']);
+    $r->addRoute('GET', '/post/{postIdx}/like', ['IndexController', 'likeList']);
+    $r->addRoute('GET', '/post/{postIdx}/image/{imageIdx}/like', ['IndexController', 'imageLikeList']);
+    $r->addRoute('GET', '/post/{postIdx}/video/{videoIdx}/like', ['IndexController', 'videoLikeList']);
+    $r->addRoute('GET', '/post/{postIdx}/comment/{commentIdx}/like', ['IndexController', 'commentLikeList']);
+    $r->addRoute('POST', '/comment', ['IndexController', 'postComment']);
+    $r->addRoute('PATCH', '/comment', ['IndexController', 'updateComment']);
+    $r->addRoute('GET', '/post/{postIdx}/comment', ['IndexController', 'getComment']);
+    $r->addRoute('DELETE', '/post/{postIdx}/comment/{commentIdx}', ['IndexController', 'deleteComment']);
+    $r->addRoute('POST', '/friend', ['IndexController', 'applyFriend']);
+    $r->addRoute('PATCH', '/friend', ['IndexController', 'acceptApply']);
+    $r->addRoute('DELETE', '/friend', ['IndexController', 'deleteFriend']);
+    $r->addRoute('GET', '/friend', ['IndexController', 'getFriend']);
+    $r->addRoute('GET', '/waitingFriend', ['IndexController', 'waitingFriend']);
+    $r->addRoute('GET', '/post/{postIdx}/image/{imageIdx}', ['IndexController', 'getImageDetail']);
+    $r->addRoute('GET', '/post/{postIdx}/video/{videoIdx}', ['IndexController', 'getVideoDetail']);
+    $r->addRoute('POST', '/post/{postIdx}/image/{imageIdx}/like', ['IndexController', 'patchImageLike']);
+    $r->addRoute('POST', '/post/{postIdx}/video/{videoIdx}/like', ['IndexController', 'patchVideoLike']);
+    $r->addRoute('POST', '/post/{postIdx}/comment/{commentIdx}/like', ['IndexController', 'patchCommentLike']);
+    $r->addRoute('POST', '/page/{pageIdx}/like', ['IndexController', 'patchPageLike']);
+    $r->addRoute('POST', '/page', ['IndexController', 'createPage']);
+    $r->addRoute('GET', '/page/{pageIdx}/like', ['IndexController', 'pageLikeList']);
+    $r->addRoute('POST', '/blacklist', ['IndexController', 'blackList']);
+    $r->addRoute('DELETE', '/blacklist', ['IndexController', 'releaseBlack']);
+    $r->addRoute('POST', '/favorites', ['IndexController', 'favorites']);
+    $r->addRoute('POST', '/storyImage', ['IndexController', 'createStoryImage']);
+
     /* ******************   JWT   ****************** */
     $r->addRoute('POST', '/jwt', ['JWTController', 'createJwt']);   // JWT 생성: 로그인
     $r->addRoute('GET', '/jwt', ['JWTController', 'validateJwt']);  // JWT 유효성 검사
 
-    /* ******************   Test   ****************** */
-    $r->addRoute('GET', '/', ['IndexController', 'index']);
-    $r->addRoute('GET', '/test', ['IndexController', 'test']);
-    $r->addRoute('GET', '/test/{testNo}', ['IndexController', 'testDetail']);
-    $r->addRoute('POST', '/test', ['IndexController', 'testPost']);
+    /* *****************   Test   ***************** */
 
 
 
