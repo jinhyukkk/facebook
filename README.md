@@ -40,3 +40,5 @@ GET	|/post/{postIdx}/comment/{commentIdx}/like	|댓글 좋아요 유저 목록 �
 GET	|/page/{pageIdx}/like	|페이지 좋아요 유저 목록 조회 API
 POST	|/favorites|	즐겨찾기 API
 POST	|/story	|스토리 등록
+
+[API 세부사항](https://docs.google.com/spreadsheets/d/1MMQBGzPBDdwT32qFgVm6wq023a9gWHIrFVHihuqzw1k/edit?usp=sharing)
